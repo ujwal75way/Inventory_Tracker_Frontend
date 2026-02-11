@@ -1,0 +1,81 @@
+<div class="bulk-upload-container">
+    <h1>Bulk Upload</h1>
+
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>Upload Excel File</mat-card-title>
+            <span style="flex: 1 1 auto;"></span>
+            <button mat-stroked-button color="primary" (click)="downloadSample()">
+                <mat-icon>download</mat-icon>
+                Download Sample
+            </button>
+        </mat-card-header>
+        <mat-card-content>
+            <div class="upload-section">
+                <input type="file" #fileInput (change)="onFileSelected($event)" accept=".xlsx,.xls" hidden />
+                <button mat-raised-button color="primary" (click)="fileInput.click()">
+                    <mat-icon>upload_file</mat-icon>
+                    Select Excel File
+                </button>
+
+                @if (selectedFile()) {
+                <div class="file-info">
+                    <mat-icon>description</mat-icon>
+                    <span>{{ selectedFile()?.name }}</span>
+                    <button mat-icon-button (click)="clearFile()">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </div>
+                }
+
+                @if (selectedFile()) {
+                <button mat-raised-button color="accent" (click)="uploadFile()" [disabled]="isUploading()">
+                    @if (isUploading()) {
+                    <mat-spinner diameter="20"></mat-spinner>
+                    } @else {
+                    <span>
+                        <mat-icon>cloud_upload</mat-icon>
+                        Upload
+                    </span>
+                    }
+                </button>
+                }
+            </div>
+
+            @if (uploadResult()) {
+            <div class="result-section">
+                <h3>Upload Results</h3>
+                <div class="result-stats">
+                    <div class="stat">
+                        <span class="label">Total Rows:</span>
+                        <span class="value">{{ uploadResult()?.totalRows }}</span>
+                    </div>
+                    <div class="stat success">
+                        <span class="label">Successful:</span>
+                        <span class="value">{{ uploadResult()?.successful }}</span>
+                    </div>
+                    <div class="stat error">
+                        <span class="label">Failed:</span>
+                        <span class="value">{{ uploadResult()?.failed }}</span>
+                    </div>
+                </div>
+
+                @if (uploadResult()!.errors.length > 0) {
+                <div class="errors-section">
+                    <h4>Errors</h4>
+                    <mat-list>
+                        @for (error of uploadResult()!.errors; track error.rowNumber) {
+                        <mat-list-item>
+                            <mat-icon matListItemIcon color="warn">error</mat-icon>
+                            <div matListItemTitle>Row {{ error.rowNumber }}</div>
+                            <div matListItemLine>{{ error.message }}</div>
+                        </mat-list-item>
+                        }
+                    </mat-list>
+                </div>
+                }
+            </div>
+            }
+        </mat-card-content>
+    </mat-card>
+</div>

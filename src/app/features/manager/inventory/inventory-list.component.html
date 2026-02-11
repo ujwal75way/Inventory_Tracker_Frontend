@@ -1,0 +1,92 @@
+<div class="inventory-container">
+    <h1>Inventory Management</h1>
+
+    <div class="toolbar">
+        <mat-form-field appearance="outline" class="search-field">
+            <mat-label>Search</mat-label>
+            <input matInput [formControl]="searchControl" placeholder="Search by SKU, Product, or Category" />
+            <mat-icon matPrefix>search</mat-icon>
+        </mat-form-field>
+
+        <div class="filter-buttons">
+            <button mat-raised-button [color]="groupBy === 'none' ? 'primary' : ''" (click)="setGroupBy('none')">
+                All Items
+            </button>
+            <button mat-raised-button [color]="groupBy === 'category' ? 'primary' : ''"
+                (click)="setGroupBy('category')">
+                Group by Category
+            </button>
+            <button mat-raised-button [color]="groupBy === 'vendor' ? 'primary' : ''" (click)="setGroupBy('vendor')">
+                Group by Vendor
+            </button>
+        </div>
+    </div>
+
+    @if (isLoading) {
+    <div class="loading-container">
+        <mat-spinner></mat-spinner>
+    </div>
+    } @else {
+    <div class="table-container">
+        <cdk-virtual-scroll-viewport itemSize="48" class="viewport">
+            <table mat-table [dataSource]="filteredInventory">
+
+                <ng-container matColumnDef="sku">
+                    <th mat-header-cell *matHeaderCellDef class="sticky-header">SKU</th>
+                    <td mat-cell *matCellDef="let item">{{ item.sku }}</td>
+                </ng-container>
+
+
+                <ng-container matColumnDef="productName">
+                    <th mat-header-cell *matHeaderCellDef class="sticky-header">Product Name</th>
+                    <td mat-cell *matCellDef="let item">{{ item.productName }}</td>
+                </ng-container>
+
+
+                <ng-container matColumnDef="category">
+                    <th mat-header-cell *matHeaderCellDef class="sticky-header">Category</th>
+                    <td mat-cell *matCellDef="let item">{{ item.category }}</td>
+                </ng-container>
+
+
+                <ng-container matColumnDef="warehouse">
+                    <th mat-header-cell *matHeaderCellDef class="sticky-header">Warehouse</th>
+                    <td mat-cell *matCellDef="let item">{{ item.warehouseName }}</td>
+                </ng-container>
+
+
+                <ng-container matColumnDef="quantity">
+                    <th mat-header-cell *matHeaderCellDef class="sticky-header">Quantity</th>
+                    <td mat-cell *matCellDef="let item">{{ item.quantity }}</td>
+                </ng-container>
+
+
+                <ng-container matColumnDef="reorderLevel">
+                    <th mat-header-cell *matHeaderCellDef class="sticky-header">Reorder Level</th>
+                    <td mat-cell *matCellDef="let item">{{ item.reorderLevel }}</td>
+                </ng-container>
+
+
+                <ng-container matColumnDef="status">
+                    <th mat-header-cell *matHeaderCellDef class="sticky-header">Status</th>
+                    <td mat-cell *matCellDef="let item">
+                        @if (item.isOutOfStock) {
+                        <mat-chip class="status-chip out-of-stock">Out of Stock</mat-chip>
+                        } @else if (item.isLowStock) {
+                        <mat-chip class="status-chip low-stock">Low Stock</mat-chip>
+                        } @else {
+                        <mat-chip class="status-chip available">Available</mat-chip>
+                        }
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+                    [class.low-stock-row]="row.isLowStock && !row.isOutOfStock"
+                    [class.out-of-stock-row]="row.isOutOfStock">
+                </tr>
+            </table>
+        </cdk-virtual-scroll-viewport>
+    </div>
+    }
+</div>

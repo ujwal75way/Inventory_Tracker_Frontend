@@ -1,0 +1,80 @@
+<div class="reports-container">
+    <h1>Reports</h1>
+
+    <mat-tab-group>
+        <mat-tab label="Low Stock Report">
+            <div class="tab-content">
+                @if (isLoadingLowStock) {
+                <div class="loading-container">
+                    <mat-spinner></mat-spinner>
+                </div>
+                } @else {
+                <table mat-table [dataSource]="lowStockItems" class="report-table">
+                    <ng-container matColumnDef="sku">
+                        <th mat-header-cell *matHeaderCellDef>SKU</th>
+                        <td mat-cell *matCellDef="let item">{{ item.sku }}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="productName">
+                        <th mat-header-cell *matHeaderCellDef>Product Name</th>
+                        <td mat-cell *matCellDef="let item">{{ item.productName }}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="warehouse">
+                        <th mat-header-cell *matHeaderCellDef>Warehouse</th>
+                        <td mat-cell *matCellDef="let item">{{ item.warehouseName }}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="currentQuantity">
+                        <th mat-header-cell *matHeaderCellDef>Current Quantity</th>
+                        <td mat-cell *matCellDef="let item">{{ item.currentQuantity }}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="reorderLevel">
+                        <th mat-header-cell *matHeaderCellDef>Reorder Level</th>
+                        <td mat-cell *matCellDef="let item">{{ item.reorderLevel }}</td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="lowStockColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: lowStockColumns;"></tr>
+                </table>
+                }
+            </div>
+        </mat-tab>
+
+        <mat-tab label="Stock Balance Report">
+            <div class="tab-content">
+                @if (isLoadingBalance) {
+                <div class="loading-container">
+                    <mat-spinner></mat-spinner>
+                </div>
+                } @else {
+                <table mat-table [dataSource]="stockBalance" class="report-table">
+                    <ng-container matColumnDef="sku">
+                        <th mat-header-cell *matHeaderCellDef>SKU</th>
+                        <td mat-cell *matCellDef="let item">{{ item.sku }}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="productName">
+                        <th mat-header-cell *matHeaderCellDef>Product Name</th>
+                        <td mat-cell *matCellDef="let item">{{ item.productName }}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="warehouse">
+                        <th mat-header-cell *matHeaderCellDef>Warehouse</th>
+                        <td mat-cell *matCellDef="let item">{{ item.warehouseName }}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="availableQuantity">
+                        <th mat-header-cell *matHeaderCellDef>Available Quantity</th>
+                        <td mat-cell *matCellDef="let item">{{ item.availableQuantity }}</td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="balanceColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: balanceColumns;"></tr>
+                </table>
+                }
+            </div>
+        </mat-tab>
+    </mat-tab-group>
+</div>

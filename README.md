@@ -1,59 +1,93 @@
-# InventoryTrackerUi
+# 📦 Multi-Vendor Inventory & Warehouse Tracker - Frontend
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.1.2.
+A comprehensive Angular-based solution for managing multi-vendor inventory across various warehouse locations. This platform enables seamless communication between Warehouse Managers and Vendors, providing real-time data visibility and robust stock management.
 
-## Development server
+---
 
-To start a local development server, run:
+## 👥 Roles & Access Control
 
-```bash
-ng serve
-```
+### 🏗️ Warehouse Manager
+The administrative role responsible for logistical operations, stock health, and warehouse-to-warehouse coordination.
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+### 🏪 Vendor
+The product owner role focused on monitoring their own catalog, pricing, and individual product performance.
 
-## Code scaffolding
+---
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## 🛠️ Warehouse Manager Modules
 
-```bash
-ng generate component component-name
-```
+### 📊 Inventory Dashboard
+*   **Unified Visibility**: View all inventory across multiple vendors in a single location.
+*   **High Performance**: Built with **Angular CDK Virtual Scroll** to handle thousands of data points with smooth scrolling.
+*   **Visual Stock Health**: 
+    *   🟡 **Low Stock**: Items nearing reorder levels are highlighted for proactive restocking.
+    *   🔴 **Out of Stock**: Items with zero quantity are immediately flagged.
+*   **Dynamic Grouping**: Flexibility to group data by **Vendor** or **Category** for better decision-making.
+*   **Sticky UI**: Interactive tables with sticky headers to maintain context during massive data exploration.
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+### 🔄 Stock Adjustment
+*   **Movement Tracking**: Precise recording of all stock movement entries.
+*   **Multiple Adjustment Types**:
+    *   📥 **Stock In**: Increase inventory for new arrivals.
+    *   📤 **Stock Out**: Reduce inventory for shipments or adjustments.
+    *   🚛 **Transfer**: Seamlessly move inventory between different warehouse locations.
+*   **History Log**: Comprehensive view of recent stock adjustments for auditing and tracking.
 
-```bash
-ng generate --help
-```
+### 📥 Bulk Stock Operations
+*   **Excel Upload**: Support for `.xlsx` and `.xls` files to update stock quantities in batches.
+*   **Data Validation**: Intelligent verification of incoming data against existing inventory records.
+*   **Partial Success Logic**: Handles large files gracefully, showing a summary of successful rows and detailed errors for failed ones.
+*   **Onboarding Support**: Downloadable sample Excel format to ensure data consistency.
 
-## Building
+---
 
-To build the project run:
+## 📦 Vendor Modules
 
-```bash
-ng build
-```
+### 📜 Product Catalog
+*   **Ownership Focus**: Vendors only see the products they own.
+*   **Real-time Stock**: Monitor live stock status across all assigned warehouses.
+*   **Status Indicators**: Immediate visual feedback on product availability and stock-out risks.
+*   **Inline Editing**: Update product pricing directly within the catalog for rapid market adjustments.
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+### 📈 Product Performance
+*   **Movement Summary**: Deep dive into how products are moving through the system.
+*   **Velocity Tracking**: Identify **Fast-Moving** and **Slow-Moving** items at a glance.
+*   **Restock Insights**: Track restock frequency to optimize future production and delivery schedules.
 
-## Running unit tests
+---
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+## 🚀 Technical Highlights & UX
 
-```bash
-ng test
-```
+*   **State Persistence**: Sophisticated state management that maintains search and filter states across navigation.
+*   **Search Pipe Architecture**: Custom **Angular Pipe** for local filtering by SKU or Category, ensuring lightning-fast search performance without redundant API calls.
+*   **Real-time Notifications**: Immediate feedback for managers on every stock operation (Success/Failure) via stylized snackbars.
+*   **Data Integrity**: Strict validation rules blocking negative stock values at the form level to prevent data corruption.
+*   **Modern Interaction**: Implementation of **Angular Signals** for reactive and predictable state changes.
 
-## Running end-to-end tests
+---
 
-For end-to-end (e2e) testing, run:
+## 🔧 Setup & Installation
 
-```bash
-ng e2e
-```
+### Prerequisites
+- Node.js 18+ and npm
+- Angular CLI 21+
+- Backend API running at `http://localhost:5033`
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+### Installation
+1. **Install dependencies:**
+    ```bash
+    npm install
+    ```
+2. **Start development server:**
+    ```bash
+    npm start
+    ```
+    The application will be available at `http://localhost:4200`
 
-## Additional Resources
+---
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## 📝 Rules and Constraints
+- Inventory values must never become invalid.
+- Stock updates reflect real-world physical movement.
+- All code follows strict TypeScript typing (No `any`).
+- Local search performance optimized via custom pipes.

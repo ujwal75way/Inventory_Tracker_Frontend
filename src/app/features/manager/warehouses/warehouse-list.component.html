@@ -1,0 +1,72 @@
+<div class="warehouse-container">
+    <div class="header-actions">
+        <h1>Warehouses</h1>
+        @if (!isCreating) {
+        <button mat-raised-button color="primary" (click)="toggleCreate()">
+            <mat-icon>add</mat-icon> Create Warehouse
+        </button>
+        }
+    </div>
+
+    @if (isCreating) {
+    <mat-card class="create-card">
+        <mat-card-header>
+            <mat-card-title>Create New Warehouse</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <form [formGroup]="warehouseForm" (ngSubmit)="onSubmit()" class="warehouse-form">
+                <mat-form-field appearance="outline">
+                    <mat-label>Warehouse Name</mat-label>
+                    <input matInput formControlName="name" placeholder="e.g. Central Hub" required />
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Location</mat-label>
+                    <input matInput formControlName="location" placeholder="e.g. New York, NY" required />
+                </mat-form-field>
+            </form>
+        </mat-card-content>
+        <mat-card-actions align="end">
+            <button mat-button (click)="toggleCreate()">Cancel</button>
+            <button mat-raised-button color="primary" [disabled]="warehouseForm.invalid || isLoading"
+                (click)="onSubmit()">
+                Create
+            </button>
+        </mat-card-actions>
+    </mat-card>
+    }
+
+    @if (isLoading && !isCreating) {
+    <div class="loading-container">
+        <mat-spinner></mat-spinner>
+    </div>
+    } @else {
+    <div class="table-container mat-elevation-z2">
+        <table mat-table [dataSource]="warehouses">
+            <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef>ID</th>
+                <td mat-cell *matCellDef="let warehouse">{{ warehouse.id }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef>Name</th>
+                <td mat-cell *matCellDef="let warehouse">{{ warehouse.name }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="location">
+                <th mat-header-cell *matHeaderCellDef>Location</th>
+                <td mat-cell *matCellDef="let warehouse">{{ warehouse.location }}</td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+            <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell" colspan="3" style="text-align: center; padding: 20px;">
+                    No warehouses found. Create one to get started.
+                </td>
+            </tr>
+        </table>
+    </div>
+    }
+</div>

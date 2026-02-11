@@ -1,0 +1,48 @@
+<div class="performance-container">
+    <h1>Product Performance</h1>
+
+    <div class="stats-grid">
+        <mat-card class="stat-card">
+            <mat-card-content>
+                <div class="stat-icon">
+                    <mat-icon>swap_horiz</mat-icon>
+                </div>
+                <div class="stat-info">
+                    <h2>{{ totalMovements }}</h2>
+                    <p>Total Movements</p>
+                </div>
+            </mat-card-content>
+        </mat-card>
+
+        <mat-card class="stat-card success">
+            <mat-card-content>
+                <div class="stat-icon">
+                    <mat-icon>arrow_downward</mat-icon>
+                </div>
+                <div class="stat-info">
+                    <h2>{{ totalStockIn }}</h2>
+                    <p>Total Stock In</p>
+                </div>
+            </mat-card-content>
+        </mat-card>
+
+        <mat-card class="stat-card warning">
+            <mat-card-content>
+                <div class="stat-icon">
+                    <mat-icon>arrow_upward</mat-icon>
+                </div>
+                <div class="stat-info">
+                    <h2>{{ totalStockOut }}</h2>
+                    <p>Total Stock Out</p>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+    <mat-card class="info-card">
+        <mat-card-content>
+            <mat-icon>info</mat-icon>
+            <p>Detailed performance analytics and charts will be available in future updates.</p>
+        </mat-card-content>
+    </mat-card>
+</div>
