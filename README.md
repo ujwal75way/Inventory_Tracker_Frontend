@@ -91,3 +91,5 @@ The product owner role focused on monitoring their own catalog, pricing, and ind
 - Stock updates reflect real-world physical movement.
 - All code follows strict TypeScript typing (No `any`).
 - Local search performance optimized via custom pipes.
+
+Video :- https://drive.google.com/file/d/1k4gB0acpYx9FKZp-hEw5Wb_LkORhEkMm/view?usp=sharing
